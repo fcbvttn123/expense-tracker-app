@@ -1,3 +1,5 @@
+const Expense = require("../models/expenseModel")
+
 function getExpenses(req, res) {
     res.json({message: "all expenses"})
 }
@@ -7,8 +9,15 @@ function getExpense(req, res) {
     res.json({message: `expense id: ${id}`})
 }
 
-function createExpense(req, res) {
-    res.json({message: "expense created"})
+async function createExpense(req, res) {
+    console.log(req.body)
+    const { transactionType, price, notes } = new Expense(req.body)
+    try {
+        const expense = await Expense.create({ transactionType, price, notes })
+        res.status(200).json(expense)
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
 }
 
 function deleteExpense(req, res) {
