@@ -1,26 +1,16 @@
-import { useEffect } from "react"
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Layout } from "./components/Layout"
+import { Home } from "./pages/Home"
 
 function App() {
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let res = await fetch("/api/expenses")
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        let data = await res.json()
-        console.log(data)
-      } catch (error) {
-        console.error('There was a problem with your fetch operation:', error)
-      }
-    }
-    fetchData()
-  }, [])
-  
-
   return (
-    <h1 className="text-3xl font-bold underline">Hello world!</h1>
+    <Router>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />}/>
+        </Route>
+      </Routes>
+    </Router>
   )
 
 }
