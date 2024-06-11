@@ -5,3 +5,10 @@
 /expenses/:id (DELETE)
 
 /expenses/:id (PATCH)
+
+
+
+
+Problems
+
++ Cannot use PORT 4000 
