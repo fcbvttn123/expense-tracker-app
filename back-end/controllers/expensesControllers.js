@@ -1,16 +1,25 @@
 const Expense = require("../models/expenseModel")
 
-function getExpenses(req, res) {
-    res.json({message: "all expenses"})
+async function getExpenses(req, res) {
+    try {
+        const result = await Expense.find().sort({createdAt: -1})
+        res.status(200).json(result)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
-function getExpense(req, res) {
+async function getExpense(req, res) {
     const id = req.params.id
-    res.json({message: `expense id: ${id}`})
+    try {
+        const result = await Expense.findById(id)
+        res.status(200).json(result)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 async function createExpense(req, res) {
-    console.log(req.body)
     const { transactionType, price, notes } = new Expense(req.body)
     try {
         const expense = await Expense.create({ transactionType, price, notes })
@@ -20,14 +29,26 @@ async function createExpense(req, res) {
     }
 }
 
-function deleteExpense(req, res) {
+async function deleteExpense(req, res) {
     const id = req.params.id
-    res.json({message: "expense deleted"})
+    try {
+        const result = await Expense.findOneAndDelete({_id: id})
+        res.status(200).json(result)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
-function updateExpense(req, res) {
+async function updateExpense(req, res) {
     const id = req.params.id
-    res.json({message: "expense updated"})
+    try {
+        const result = await Expense.findOneAndUpdate({_id: id}, {
+            ...req.body
+        })
+        res.status(200).json(result)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 module.exports = {
