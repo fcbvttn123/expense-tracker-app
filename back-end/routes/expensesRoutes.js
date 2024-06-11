@@ -9,7 +9,7 @@ router.get("/", getExpenses)
 router.get("/:id", getExpense)
 
 // Create expense (POST)
-router.post("/create", createExpense)
+router.post("/", createExpense)
 
 // Delete expense (DELETE)
 router.delete("/:id", deleteExpense)
