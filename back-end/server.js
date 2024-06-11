@@ -1,5 +1,5 @@
 const express = require("express")
-const expensesRoutes = require("./routes/expenses")
+const expensesRoutes = require("./routes/expensesRoutes")
 require("dotenv").config()
 
 // Express App
