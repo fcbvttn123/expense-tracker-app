@@ -1,0 +1,7 @@
+/expenses (GET)
+
+/expenses/create (POST)
+
+/expenses/:id (DELETE)
+
+/expenses/:id (PATCH)
