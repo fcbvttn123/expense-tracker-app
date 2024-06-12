@@ -72,7 +72,7 @@ export function CreateTransaction() {
           value={formData.notes}
           onChange={(e) => handleFormChange(e, setFormData)}
         />
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" type="submit">
           Add
         </Button>
       </form>
