@@ -35,30 +35,47 @@ export function CreateTransaction() {
     })
 
     return (
-        <form 
-            onSubmit={(e) => {
-                e.preventDefault()
-                addToMongoDb(formData, "/api/expenses")
-            }}
-            className={classes.form} 
-            noValidate 
-            autoComplete="off"
-        >
-            <TextField id="filled-basic" label="Transaction Type" variant="filled" name="transactionType" value={formData.transactionType} onChange={(e) => handleFormChange(e, setFormData)} />
-            <TextField id="filled-basic" label="Price" variant="filled" name="price" value={formData.price} type="number" onChange={(e) => handleFormChange(e, setFormData)} />
-            <TextField
-                id="filled-multiline-static"
-                label="Multiline"
-                multiline
-                minRows={4}
-                defaultValue="Default Value"
-                variant="filled"
-                name="notes"
-                value={formData.notes} 
-                onChange={(e) => handleFormChange(e, setFormData)}
-            />
-            <Button variant="contained" color="primary"> Add </Button>
-        </form>
-    )
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          addToMongoDb(formData, "/api/expenses");
+        }}
+        className={classes.form}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="filled-basic"
+          label="Transaction Type"
+          variant="filled"
+          name="transactionType"
+          value={formData.transactionType}
+          onChange={(e) => handleFormChange(e, setFormData)}
+        />
+        <TextField
+          id="filled-basic"
+          label="Price"
+          variant="filled"
+          name="price"
+          value={formData.price}
+          type="number"
+          onChange={(e) => handleFormChange(e, setFormData)}
+        />
+        <TextField
+          id="filled-multiline-static"
+          label="Multiline"
+          multiline
+          minRows={4}
+          defaultValue="Default Value"
+          variant="filled"
+          name="notes"
+          value={formData.notes}
+          onChange={(e) => handleFormChange(e, setFormData)}
+        />
+        <Button variant="contained" color="primary">
+          Add
+        </Button>
+      </form>
+    );
 
 }
