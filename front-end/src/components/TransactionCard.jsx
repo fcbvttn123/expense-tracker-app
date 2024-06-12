@@ -1,12 +1,61 @@
 import { removeFromDb } from "../hooks/deleteFromMongoDb"
 
+
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Collapse from '@material-ui/core/Collapse';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { red } from '@material-ui/core/colors';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+    marginBottom: 20
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  expand: {
+    transform: 'rotate(0deg)',
+    marginLeft: 'auto',
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
+  },
+  expandOpen: {
+    transform: 'rotate(180deg)',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+}))
+
 export function TransactionCard({id, transactionType, price, notes}) {
+    const classes = useStyles()
     return (
-        <div className="mb-2">
-            <p>Transaction Type: {transactionType}</p>    
-            <p>Price: ${price}</p>   
-            <p>{notes}</p>
-            <button className="bg-zinc-300 px-4 py-1 rounded-md" onClick={() => removeFromDb(id, "/api/expenses/")} data-id={id}>Delete</button> 
-        </div>
+        <Card className={classes.root}>
+            <CardHeader
+                action={
+                    <IconButton aria-label="settings" onClick={() => removeFromDb(id, "/api/expenses/")}>
+                        <DeleteIcon />
+                    </IconButton>
+                }
+                title={transactionType}
+                subheader={`$${price}`}
+            />
+        </Card>
     )
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { TransactionCard } from "../components/TransactionCard"
+import React from 'react';
 
 export function Home() {
 
