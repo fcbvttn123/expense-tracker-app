@@ -11,10 +11,13 @@ export function CreateTransaction() {
     })
 
     return (
-        <form onSubmit={(e) => {
-            e.preventDefault()
-            addToMongoDb(formData, "/api/expenses")
-        }}>
+        <form 
+            className="pt-20 pl-5"
+            onSubmit={(e) => {
+                e.preventDefault()
+                addToMongoDb(formData, "/api/expenses")
+            }}
+        >
             <div className="flex items-center gap-4 mb-2">
                 <label htmlFor="transactionType" className="min-w-32">Transaction Type</label>
                 <input type="text" name="transactionType" id="transactionType" value={formData.transactionType} onChange={(e) => handleFormChange(e, setFormData)} className="border-2 border-black" />

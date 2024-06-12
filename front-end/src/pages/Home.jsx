@@ -20,7 +20,7 @@ export function Home() {
     }, [])
 
     return (
-        <div>
+        <div className="pt-20 pl-5">
             {
                 expenses && expenses.map(e => (
                     <TransactionCard key={e._id} id={e._id} transactionType={e.transactionType} price={e.price} notes={e.notes}/>
