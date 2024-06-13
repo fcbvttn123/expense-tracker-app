@@ -37,7 +37,11 @@ export function CreateTransaction() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        addToMongoDb(formData, "/api/expenses");
+        addToMongoDb(formData, "/api/expenses", setFormData, {
+          transactionType: "",
+          price: 0,
+          notes: "",
+        });
       }}
       className={classes.form}
       noValidate
