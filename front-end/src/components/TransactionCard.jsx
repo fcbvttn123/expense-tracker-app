@@ -35,8 +35,9 @@ const useStyles = makeStyles((theme) => ({
 
 export function TransactionCard({ id, transactionType, price, notes }) {
   const classes = useStyles();
-  const { expenses, dispatch } = useExpensesContext();
+  const { dispatch } = useExpensesContext();
   async function deleteTransaction(e, transactionId, path) {
+    e.preventDefault();
     try {
       let response = await removeFromDb(transactionId, path);
       dispatch({
@@ -45,6 +46,7 @@ export function TransactionCard({ id, transactionType, price, notes }) {
       });
     } catch (error) {
       console.log(error);
+      setError(error.message);
     }
   }
   return (
