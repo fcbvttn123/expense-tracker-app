@@ -24,6 +24,4 @@ export default App
 
 // Form error 
 
-// Update data after DELETE
-
 // Learn try-catch syntax  

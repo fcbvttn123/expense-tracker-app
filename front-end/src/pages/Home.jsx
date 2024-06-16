@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { TransactionCard } from "../components/TransactionCard";
 import { useExpensesContext } from "../hooks/useExpensesContext";
 import { ACTIONS as expenseContextActions } from "../context/ExpenseContext";
 
 export function Home() {
-  const {expenses, dispatch} = useExpensesContext();
+  const { expenses, dispatch } = useExpensesContext();
 
   // Fetch all expenses
   useEffect(() => {
@@ -12,7 +12,7 @@ export function Home() {
       try {
         let res = await fetch("/api/expenses");
         let data = await res.json();
-        dispatch({type: expenseContextActions.GET_EXPENSES, payload: data});
+        dispatch({ type: expenseContextActions.GET_EXPENSES, payload: data });
       } catch (error) {
         console.error("There was a problem with your fetch operation:", error);
       }

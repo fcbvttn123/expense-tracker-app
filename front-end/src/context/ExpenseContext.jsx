@@ -15,7 +15,7 @@ export function expensesReducer(state, action) {
       };
     case ACTIONS.DELETE_EXPENSE:
       return {
-        expenses: state.filter((e) => e._id !== action.payload._id),
+        expenses: state.expenses.filter((e) => e._id !== action.payload._id),
       };
     default:
       break;
