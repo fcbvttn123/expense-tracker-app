@@ -5,6 +5,8 @@ import { addToMongoDb } from "../hooks/addToMongoDb";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import { Snackbar } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -22,62 +24,92 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-}));
+}))
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export function CreateTransaction() {
-  const classes = useStyles();
-
+  const classes = useStyles()
+  const [openSnackbar, setOpenSnackbar] = useState(false)
   const [formData, setFormData] = useState({
     transactionType: "",
     price: 0,
     notes: "",
-  });
+  })
+
+  function handleCloseSnackBar(event, reason)  {
+    if (reason === 'clickaway') {
+      return
+    }
+    setOpenSnackbar(false)
+  }
+
+  async function handleFormSubmit(e) {
+    e.preventDefault()
+    let document = await addToMongoDb(formData, "/api/expenses")
+    console.log(document)
+    setFormData({
+      transactionType: "",
+      price: 0,
+      notes: "",
+    })
+    setOpenSnackbar(true)
+  }
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        addToMongoDb(formData, "/api/expenses", setFormData, {
-          transactionType: "",
-          price: 0,
-          notes: "",
-        });
-      }}
-      className={classes.form}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField
-        id="filled-basic"
-        label="Transaction Type"
-        variant="filled"
-        name="transactionType"
-        value={formData.transactionType}
-        onChange={(e) => handleFormChange(e, setFormData)}
-      />
-      <TextField
-        id="filled-basic"
-        label="Price"
-        variant="filled"
-        name="price"
-        value={formData.price}
-        type="number"
-        onChange={(e) => handleFormChange(e, setFormData)}
-      />
-      <TextField
-        id="filled-multiline-static"
-        label="Multiline"
-        multiline
-        minRows={4}
-        defaultValue="Default Value"
-        variant="filled"
-        name="notes"
-        value={formData.notes}
-        onChange={(e) => handleFormChange(e, setFormData)}
-      />
-      <Button variant="contained" color="primary" type="submit">
-        Add
-      </Button>
-    </form>
-  );
+
+    <>
+
+      {/* Form */}
+      <form
+        onSubmit={handleFormSubmit}
+        className={classes.form}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="filled-basic"
+          label="Transaction Type"
+          variant="filled"
+          name="transactionType"
+          value={formData.transactionType}
+          onChange={(e) => handleFormChange(e, setFormData)}
+        />
+        <TextField
+          id="filled-basic"
+          label="Price"
+          variant="filled"
+          name="price"
+          value={formData.price}
+          type="number"
+          onChange={(e) => handleFormChange(e, setFormData)}
+        />
+        <TextField
+          id="filled-multiline-static"
+          label="Multiline"
+          multiline
+          minRows={4}
+          defaultValue="Default Value"
+          variant="filled"
+          name="notes"
+          value={formData.notes}
+          onChange={(e) => handleFormChange(e, setFormData)}
+        />
+        <Button variant="contained" color="primary" type="submit">
+          Add
+        </Button>
+      </form>
+
+      {/* Snackbar */}
+      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackBar}>
+        <Alert onClose={handleCloseSnackBar} severity="success">
+          Transaction Added!
+        </Alert>
+      </Snackbar>
+
+    </>
+
+  )
 }
