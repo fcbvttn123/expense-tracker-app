@@ -47,15 +47,18 @@ export function CreateTransaction() {
   }
 
   async function handleFormSubmit(e) {
-    e.preventDefault()
-    let document = await addToMongoDb(formData, "/api/expenses")
-    console.log(document)
-    setFormData({
-      transactionType: "",
-      price: 0,
-      notes: "",
-    })
-    setOpenSnackbar(true)
+    e.preventDefault()    
+    try {
+      let document = await addToMongoDb(formData, "/api/expenses")
+      setFormData({
+        transactionType: "",
+        price: 0,
+        notes: "",
+      })
+      setOpenSnackbar(true)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
