@@ -1,10 +1,18 @@
-/expenses (GET)
+/api/budgets/ (POST)
 
-/expenses/create (POST)
++ Categories
 
-/expenses/:id (DELETE)
+    + Category 
 
-/expenses/:id (PATCH)
+    + Price 
+
++ Period: week, month, year, every week, every month, every year (Default: every month) 
+
++ Start Date (Default: current date)
+
++ End Date (depend on Start Date and Period)
+
++ Total 
 
 
 

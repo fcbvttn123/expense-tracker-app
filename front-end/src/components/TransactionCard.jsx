@@ -1,5 +1,5 @@
 import { removeFromDb } from "../hooks/deleteFromMongoDb"
-import { format, compareAsc } from "date-fns"
+import { format } from "date-fns"
 
 import { makeStyles } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card"
@@ -58,9 +58,7 @@ export function TransactionCard({
     }
   }
   return (
-    // Card
     <Card className={classes.root}>
-      {/* Card Header */}
       <CardHeader
         action={
           <IconButton
@@ -73,7 +71,6 @@ export function TransactionCard({
         title={transactionType}
         subheader={`$${price}`}
       />
-      {/* Card Content */}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {format(createdAt, "MM/dd/yyyy")}
