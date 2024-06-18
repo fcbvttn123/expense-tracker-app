@@ -1,13 +1,15 @@
-import { removeFromDb } from "../hooks/deleteFromMongoDb";
+import { removeFromDb } from "../hooks/deleteFromMongoDb"
+import { format, compareAsc } from "date-fns"
 
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import IconButton from "@material-ui/core/IconButton";
-import { red } from "@material-ui/core/colors";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { useExpensesContext } from "../hooks/useExpensesContext";
-import { ACTIONS as expenseContextActions } from "../context/ExpenseContext";
+import { makeStyles } from "@material-ui/core/styles"
+import Card from "@material-ui/core/Card"
+import CardHeader from "@material-ui/core/CardHeader"
+import IconButton from "@material-ui/core/IconButton"
+import { red } from "@material-ui/core/colors"
+import DeleteIcon from "@material-ui/icons/Delete"
+import { useExpensesContext } from "../hooks/useExpensesContext"
+import { ACTIONS as expenseContextActions } from "../context/ExpenseContext"
+import { CardContent, Typography } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,26 +33,34 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: red[500],
   },
-}));
+}))
 
-export function TransactionCard({ id, transactionType, price, notes }) {
-  const classes = useStyles();
-  const { dispatch } = useExpensesContext();
+export function TransactionCard({
+  id,
+  transactionType,
+  price,
+  notes,
+  createdAt,
+}) {
+  const classes = useStyles()
+  const { dispatch } = useExpensesContext()
   async function deleteTransaction(e, transactionId, path) {
-    e.preventDefault();
+    e.preventDefault()
     try {
-      let response = await removeFromDb(transactionId, path);
+      let response = await removeFromDb(transactionId, path)
       dispatch({
         type: expenseContextActions.DELETE_EXPENSE,
         payload: { _id: transactionId },
-      });
+      })
     } catch (error) {
-      console.log(error);
-      setError(error.message);
+      console.log(error)
+      setError(error.message)
     }
   }
   return (
+    // Card
     <Card className={classes.root}>
+      {/* Card Header */}
       <CardHeader
         action={
           <IconButton
@@ -63,6 +73,12 @@ export function TransactionCard({ id, transactionType, price, notes }) {
         title={transactionType}
         subheader={`$${price}`}
       />
+      {/* Card Content */}
+      <CardContent>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {format(createdAt, "MM/dd/yyyy")}
+        </Typography>
+      </CardContent>
     </Card>
-  );
+  )
 }
