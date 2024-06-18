@@ -15,8 +15,8 @@ const subBudgetSchema = new Schema(
   { timestamps: true }
 )
 
-const budgetSchema =
-  ({
+const budgetSchema = new Schema(
+  {
     categories: [subBudgetSchema],
     period: {
       type: "String",
@@ -35,6 +35,7 @@ const budgetSchema =
       required: true,
     },
   },
-  { timestamps: true })
+  { timestamps: true }
+)
 
 module.exports = mongoose.model("Budget", budgetSchema)

@@ -1,4 +1,5 @@
 const express = require("express")
+const { createBudget } = require("../controllers/budgetsControllers")
 const router = express.Router()
 
 // Get all budgets (GET)
@@ -7,9 +8,7 @@ router.get("/", (req, res) => {
 })
 
 // Create Budget (POST)
-router.post("/", (req, res) => {
-  res.json({ message: "Create Budget" })
-})
+router.post("/", createBudget)
 
 // Delete Budget (DELETE)
 router.delete("/:id", (req, res) => {
