@@ -22,6 +22,9 @@ async function getExpense(req, res) {
 async function createExpense(req, res) {
     const { transactionType, price, notes } = new Expense(req.body)
     try {
+        if(!transactionType || !price) {
+            throw new Error("Please fill in required fields")
+        }
         const expense = await Expense.create({ transactionType, price, notes })
         res.status(200).json(expense)
     } catch (error) {

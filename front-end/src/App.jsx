@@ -18,10 +18,3 @@ function App() {
 }
 
 export default App
-
-
-
-
-// Form error 
-
-// Learn try-catch syntax  

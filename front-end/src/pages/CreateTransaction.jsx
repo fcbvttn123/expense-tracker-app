@@ -33,6 +33,10 @@ function Alert(props) {
 export function CreateTransaction() {
   const classes = useStyles()
   const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [snackbarData, setSnackbarData] = useState({
+    message: "", 
+    severity: ""
+  }) 
   const [formData, setFormData] = useState({
     transactionType: "",
     price: 0,
@@ -48,17 +52,24 @@ export function CreateTransaction() {
 
   async function handleFormSubmit(e) {
     e.preventDefault()    
-    try {
-      let document = await addToMongoDb(formData, "/api/expenses")
+    let jsonData = await addToMongoDb(formData, "/api/expenses")
+    if(!jsonData.error) {
       setFormData({
         transactionType: "",
         price: 0,
         notes: "",
       })
-      setOpenSnackbar(true)
-    } catch (error) {
-      console.log(error)
+      setSnackbarData({
+        message: "Transaction Added!", 
+        severity: "success"
+      })
+    } else {
+      setSnackbarData({
+        message: jsonData.error, 
+        severity: "error"
+      })
     }
+    setOpenSnackbar(true)
   }
 
   return (
@@ -107,8 +118,8 @@ export function CreateTransaction() {
 
       {/* Snackbar */}
       <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackBar}>
-        <Alert onClose={handleCloseSnackBar} severity="success">
-          Transaction Added!
+        <Alert onClose={handleCloseSnackBar} severity={snackbarData.severity}>
+          {snackbarData.message}
         </Alert>
       </Snackbar>
 
