@@ -1,5 +1,15 @@
 const Budget = require("../models/budgetModel")
 
+// GET
+async function getBudgets(req, res) {
+  try {
+    const budgets = await Budget.find({})
+    res.status(200).json(budgets)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
+
 // POST
 async function createBudget(req, res) {
   const { categories, period, startDate, endDate, total } = req.body
@@ -19,4 +29,5 @@ async function createBudget(req, res) {
 
 module.exports = {
   createBudget,
+  getBudgets,
 }

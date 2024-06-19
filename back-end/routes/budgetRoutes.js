@@ -1,11 +1,12 @@
 const express = require("express")
-const { createBudget } = require("../controllers/budgetsControllers")
 const router = express.Router()
+const {
+  getBudgets,
+  createBudget,
+} = require("../controllers/budgetsControllers")
 
 // Get all budgets (GET)
-router.get("/", (req, res) => {
-  res.json({ message: "Get all budgets" })
-})
+router.get("/", getBudgets)
 
 // Create Budget (POST)
 router.post("/", createBudget)

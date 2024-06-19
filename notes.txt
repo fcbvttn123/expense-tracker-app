@@ -17,6 +17,45 @@
 
 
 
+Sample Data
+
+{
+    "categories": [
+        {
+            "category": "Groceries",
+            "price": 150
+        },
+        {
+            "category": "Transport",
+            "price": 50
+        }
+    ],
+    "period": "Monthly",
+    "startDate": "2024-06-01T00:00:00Z",
+    "endDate": "2024-06-30T23:59:59Z",
+    "total": 200
+}
+
+{
+    "categories": [
+        {
+            "category": "Travel",
+            "price": 300
+        },
+        {
+            "category": "Healthcare",
+            "price": 100
+        }
+    ],
+    "period": "Annual",
+    "startDate": "2024-01-01T00:00:00Z",
+    "endDate": "2024-12-31T23:59:59Z",
+    "total": 400
+}
+
+
+
+
 Problems
 
 + Cannot use PORT 4000 
