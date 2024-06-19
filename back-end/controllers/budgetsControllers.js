@@ -10,6 +10,17 @@ async function getBudgets(req, res) {
   }
 }
 
+// GET (one)
+async function getBudget(req, res) {
+  const { id } = req.params
+  try {
+    const budget = await Budget.findById(id)
+    res.status(200).json(budget)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
+
 // POST
 async function createBudget(req, res) {
   const { categories, period, startDate, endDate, total } = req.body
@@ -55,8 +66,9 @@ async function updateBudget(req, res) {
 }
 
 module.exports = {
-  createBudget,
   getBudgets,
+  getBudget,
+  createBudget,
   deleteBudget,
   updateBudget,
 }
