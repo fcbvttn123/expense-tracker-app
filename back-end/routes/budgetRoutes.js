@@ -3,6 +3,8 @@ const router = express.Router()
 const {
   getBudgets,
   createBudget,
+  deleteBudget,
+  updateBudget,
 } = require("../controllers/budgetsControllers")
 
 // Get all budgets (GET)
@@ -12,9 +14,9 @@ router.get("/", getBudgets)
 router.post("/", createBudget)
 
 // Delete Budget (DELETE)
-router.delete("/:id", (req, res) => {
-  const { id } = req.params
-  res.json({ message: `Delete Budget: ${id}` })
-})
+router.delete("/:id", deleteBudget)
+
+// Update Budget (PATCH)
+router.patch("/:id", updateBudget)
 
 module.exports = router

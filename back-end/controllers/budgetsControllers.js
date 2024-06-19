@@ -27,7 +27,36 @@ async function createBudget(req, res) {
   }
 }
 
+// DELETE
+async function deleteBudget(req, res) {
+  const { id } = req.params
+  try {
+    const budget = await Budget.findOneAndDelete({ _id: id })
+    res.status(200).json(budget)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+// PATCH
+async function updateBudget(req, res) {
+  const { id } = req.params
+  try {
+    const budget = await Budget.findOneAndUpdate(
+      { _id: id },
+      {
+        ...req.body,
+      }
+    )
+    res.status(200).json(budget)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
 module.exports = {
   createBudget,
   getBudgets,
+  deleteBudget,
+  updateBudget,
 }
